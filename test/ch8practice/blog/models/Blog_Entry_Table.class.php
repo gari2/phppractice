@@ -22,17 +22,17 @@ SUBSTRING(entry_text, 1, 150) AS intro FROM blog_entry";
     }
 
     public function getEntry($id) {
-        $sql = "SELECT entry_id, title, entry_text, date_created FROM blog_entry WHERE entry_id = ?";
+        $sql = "SELECT entry_id, title, entry_text, date_created 
+FROM blog_entry WHERE entry_id = ?";
         $data = array($id);
         $statement = $this->makeStatement($sql, $data);
         $model = $statement->fetchObject();
         return $model;
     }
     private function makeStatement($sql, $data = NULL) {
-        $statement = $this->$db->prepare($sql)
-        ;
+        $statement = $this->db->prepare($sql);
         try{
-            $statement->execute($date);
+            $statement->execute($data);
         } catch (Exception $e){
             $exceptionMessage = "<p>You tried to run this sql; $sql<p>
 <p>Exception; $e</p>";
